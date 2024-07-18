@@ -1,20 +1,20 @@
-[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge&cacheSeconds=3600)](https://github.com/hacs/integration)
-[![size_badge](https://img.shields.io/github/repo-size/gjohansson-ST/response_as_entity?style=for-the-badge&cacheSeconds=3600)](https://github.com/gjohansson-ST/response_as_entity)
-[![version_badge](https://img.shields.io/github/v/release/gjohansson-ST/response_as_entity?label=Latest%20release&style=for-the-badge&cacheSeconds=3600)](https://github.com/gjohansson-ST/response_as_entity/releases/latest)
-[![download_badge](https://img.shields.io/github/downloads/gjohansson-ST/response_as_entity/total?style=for-the-badge&cacheSeconds=3600)](https://github.com/gjohansson-ST/response_as_entity/releases/latest)
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge&cacheSeconds=3600)](https://github.com/hacs/integration)
+[![size_badge](https://img.shields.io/github/repo-size/gjohansson-ST/response_as_sensor?style=for-the-badge&cacheSeconds=3600)](https://github.com/gjohansson-ST/response_as_sensor)
+[![version_badge](https://img.shields.io/github/v/release/gjohansson-ST/response_as_sensor?label=Latest%20release&style=for-the-badge&cacheSeconds=3600)](https://github.com/gjohansson-ST/response_as_sensor/releases/latest)
+[![download_badge](https://img.shields.io/github/downloads/gjohansson-ST/response_as_sensor/total?style=for-the-badge&cacheSeconds=3600)](https://github.com/gjohansson-ST/response_as_sensor/releases/latest)
 
 
-# Home Assistant create an service call response as it's own entity
+# Home Assistant create an action call response as it's own sensor
 ---
-**Title:** "Response as entity"
+**Title:** "Response as sensor"
 
 **Description:** "Create an entity from a service call response data."
 
 **Date created:** 2024-06-25
 
-**Last update:** 2024-06-25
+**Last update:** 2024-07-18
 
-**Join the Discussion on Development:** [https://discord.gg/qyBhBArwHN](https://discord.gg/qyBhBArwHN)
+**Join the Discussion on Development:** [https://discord.gg/hP5n4GaPg3](https://discord.gg/hP5n4GaPg3)
 
 ---
 
@@ -24,7 +24,9 @@
 
 - Name: Name of the new entity
 - Entity: From which entity you want to get the attribute
-- Attribute: Which attribute you want as it's own sensor
+- Action: Which service to call
+- Action data: Which data to include in the action call (besides entity)
+- Response value: Which attribute you want as it's own sensor
 
 ### Options that you can change at any time
 
@@ -38,21 +40,19 @@
 ### Option 1 (preferred)
 
 Use [HACS](https://hacs.xyz/) to install
+Add as [custom repository](https://hacs.xyz/docs/faq/custom_repositories) to HACS
 
 ### Option 2
 
-Below config-folder create a new folder called`custom_components` if not already exist.
-
-Below new `custom_components` folder create a new folder called `response_as_entity`
-
-Upload the files/folders in `custom_components/response_as_entity` directory to the newly created folder.
-
-Restart before proceeding
+1. Below config-folder create a new folder called`custom_components` if not already exist.
+2. Below new `custom_components` folder create a new folder called `response_as_entity`
+3. Upload the files/folders in `custom_components/response_as_sensor` directory to the newly created folder.
+4. Restart before proceeding
 
 ## Activate integration in HA
 
-[![Add integrations](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start?domain=response_as_entity)
+[![Add integrations](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start?domain=response_as_sensor)
 
-After installation go to "Devices & Services" and then "helper" page in HA, press "+ Create helper" and find "Response as entity"
-Follow onscreen information for the required information
+After installation go to "Devices & services" and then "helper" page in HA, press "+ Create helper" and find "Response as sensor"
+Follow on-screen information for the required information
 No restart needed
