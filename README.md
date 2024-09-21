@@ -8,7 +8,7 @@
 ---
 **Title:** "Response as sensor"
 
-**Description:** "Create an entity from a service call response data."
+**Description:** "Create an entity from an action call response data."
 
 **Date created:** 2024-09-21
 
