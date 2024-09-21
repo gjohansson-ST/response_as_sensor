@@ -10,9 +10,9 @@
 
 **Description:** "Create an entity from a service call response data."
 
-**Date created:** 2024-06-25
+**Date created:** 2024-09-21
 
-**Last update:** 2024-07-18
+**Last update:** 2024-09-21
 
 **Join the Discussion on Development:** [https://discord.gg/hP5n4GaPg3](https://discord.gg/hP5n4GaPg3)
 
@@ -22,18 +22,17 @@
 
 ### Set once
 
-- Name: Name of the new entity
-- Entity: From which entity you want to get the attribute
-- Action: Which service to call
-- Action data: Which data to include in the action call (besides entity)
-- Response value: Which attribute you want as it's own sensor
+- Name: Name of the new entity.
+- Action: Which service to call.
 
 ### Options that you can change at any time
 
-- Icon: Icon to use in frontend
-- Device class: Device class (select from list)
-- State class: State class (select from list)
-- Unit of measurement: UoM to use in frontend (select from list, only temperature, or write your own)
+- Value template: Use a template to construct the final state of the sensor.
+- Icon: Icon to use in frontend.
+- Device class: Device class (select from list).
+- State class: State class (select from list).
+- Unit of measurement: UoM to use in frontend (select from list, only temperature, or write your own).
+- Frequency: Frequency of the action call, don't set too low.
 
 ## Installation
 
