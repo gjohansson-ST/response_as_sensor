@@ -7,44 +7,44 @@ sort-direction: ascending
 categories:
   - title: "🚨 Breaking changes"
     semver-increment: major
-      when:
-        labels:
-          - "breaking-change"
+    when:
+      labels:
+        - "breaking-change"
   - title: "✨ New features"
     semver-increment: minor
-        when:
-          labels:
-            - "new-feature"
+    when:
+      labels:
+        - "new-feature"
   - title: "🐛 Bug fixes"
     semver-increment: patch
-      when:
-        labels:
-          - "bugfix"
+    when:
+      labels:
+        - "bugfix"
   - title: "🚀 Enhancements"
     semver-increment: patch
-      when:
-        labels:
-          - "enhancement"
-          - "refactor"
-          - "performance"
+    when:
+      labels:
+        - "enhancement"
+        - "refactor"
+        - "performance"
   - title: "🧰 Maintenance"
     semver-increment: patch
-      when:
-        labels:
-          - "maintenance"
-          - "ci"
+    when:
+      labels:
+        - "maintenance"
+        - "ci"
   - title: "📚 Documentation"
     semver-increment: patch
-      when:
-        labels:
-          - "documentation"
+    when:
+      labels:
+        - "documentation"
   - title: "⬆️ Dependency updates"
     semver-increment: patch
     exclusive: true
     collapse-after: 0
-      when:
-        labels:
-          - "dependencies"
+    when:
+      labels:
+        - "dependencies"
   - type: "version-resolver"
     semver-increment: major
     when:
