@@ -1,4 +1,4 @@
-[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge&cacheSeconds=3600)](https://github.com/hacs/integration)
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge&cacheSeconds=3600)](https://github.com/hacs/integration)
 [![size_badge](https://img.shields.io/github/repo-size/gjohansson-ST/response_as_sensor?style=for-the-badge&cacheSeconds=3600)](https://github.com/gjohansson-ST/response_as_sensor)
 [![version_badge](https://img.shields.io/github/v/release/gjohansson-ST/response_as_sensor?label=Latest%20release&style=for-the-badge&cacheSeconds=3600)](https://github.com/gjohansson-ST/response_as_sensor/releases/latest)
 [![download_badge](https://img.shields.io/github/downloads/gjohansson-ST/response_as_sensor/total?style=for-the-badge&cacheSeconds=3600)](https://github.com/gjohansson-ST/response_as_sensor/releases/latest)
@@ -20,7 +20,7 @@
 
 **Date created:** 2024-09-21
 
-**Last update:** 2024-09-21
+**Last update:** 2026-07-02
 
 **Join the Discussion on Development:** [https://discord.gg/hP5n4GaPg3](https://discord.gg/hP5n4GaPg3)
 
@@ -47,7 +47,6 @@
 ### Option 1 (preferred)
 
 Use [HACS](https://hacs.xyz/) to install
-Add as [custom repository](https://hacs.xyz/docs/faq/custom_repositories) to HACS
 
 ### Option 2
 
