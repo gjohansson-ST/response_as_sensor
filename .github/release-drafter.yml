@@ -56,6 +56,9 @@ categories:
   - type: "version-resolver"
     semver-increment: patch
 
+exclude-contributors:
+  - "renovate"
+
 template: |
   ## What’s changed
 
