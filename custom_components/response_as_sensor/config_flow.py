@@ -11,6 +11,7 @@ from homeassistant.components.sensor import CONF_STATE_CLASS
 from homeassistant.const import (
     CONF_ACTION,
     CONF_DEVICE_CLASS,
+    CONF_DEVICE_ID,
     CONF_ENTITY_CATEGORY,
     CONF_ICON,
     CONF_NAME,
@@ -59,6 +60,7 @@ OPTIONS_SCHEMA = probatio.Schema(
                 translation_key="entity_category",
             )
         ),
+        probatio.Optional(CONF_DEVICE_ID): selector.DeviceSelector(),
         probatio.Optional(CONF_FREQUENCY): selector.DurationSelector(
             selector.DurationSelectorConfig(
                 enable_day=False, enable_millisecond=False, allow_negative=False
