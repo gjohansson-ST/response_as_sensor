@@ -9,7 +9,6 @@ import voluptuous as vol
 
 from homeassistant.components.sensor import (
     CONF_STATE_CLASS,
-    CONF_UNIT_OF_MEASUREMENT,
     DEVICE_CLASSES,
     STATE_CLASSES,
 )
@@ -18,6 +17,7 @@ from homeassistant.const import (
     CONF_DEVICE_CLASS,
     CONF_ICON,
     CONF_NAME,
+    CONF_UNIT_OF_MEASUREMENT,
     CONF_VALUE_TEMPLATE,
     UnitOfTemperature,
 )
