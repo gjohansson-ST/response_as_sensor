@@ -18,10 +18,12 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
     CONF_ACTION,
     CONF_DEVICE_CLASS,
+    CONF_ENTITY_CATEGORY,
     CONF_ICON,
     CONF_NAME,
     CONF_UNIT_OF_MEASUREMENT,
     CONF_VALUE_TEMPLATE,
+    EntityCategory,
 )
 from homeassistant.core import CALLBACK_TYPE, Context, HomeAssistant, callback
 from homeassistant.exceptions import TemplateError
@@ -45,6 +47,7 @@ RESPONSE_CONFIG_SCHEMA = vol.Schema(
         vol.Optional(CONF_DEVICE_CLASS): cv.string,
         vol.Optional(CONF_STATE_CLASS): cv.string,
         vol.Optional(CONF_UNIT_OF_MEASUREMENT): cv.string,
+        vol.Optional(CONF_ENTITY_CATEGORY): vol.Coerce(EntityCategory),
         vol.Optional(
             CONF_FREQUENCY, default={"minutes": 5}
         ): cv.positive_time_period_dict,
@@ -70,6 +73,7 @@ async def async_setup_entry(
     device_class = validated_config.get(CONF_DEVICE_CLASS)
     state_class = validated_config.get(CONF_STATE_CLASS)
     uom = validated_config.get(CONF_UNIT_OF_MEASUREMENT)
+    entity_category = validated_config.get(CONF_ENTITY_CATEGORY)
     value_template = validated_config.get(CONF_VALUE_TEMPLATE)
     frequency = validated_config.get(CONF_FREQUENCY)
 
@@ -82,6 +86,7 @@ async def async_setup_entry(
                 device_class,
                 state_class,
                 uom,
+                entity_category,
                 config_entry.title,
                 config_entry.entry_id,
                 value_template,
@@ -105,6 +110,7 @@ class ResponseSensor(SensorEntity):  # pylint: disable=too-many-instance-attribu
         device_class: SensorDeviceClass | None,
         state_class: SensorStateClass | None,
         uom: str | None,
+        entity_category: EntityCategory | None,
         name: str,
         unique_id: str | None,
         value_template: Template,
@@ -119,6 +125,7 @@ class ResponseSensor(SensorEntity):  # pylint: disable=too-many-instance-attribu
         self._attr_icon = icon
         self._attr_native_unit_of_measurement = uom
         self._attr_state_class = state_class
+        self._attr_entity_category = entity_category
 
         self._value_template = value_template
         self._frequency = frequency

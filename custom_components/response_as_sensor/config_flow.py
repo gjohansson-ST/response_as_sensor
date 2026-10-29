@@ -15,10 +15,12 @@ from homeassistant.components.sensor import (
 from homeassistant.const import (
     CONF_ACTION,
     CONF_DEVICE_CLASS,
+    CONF_ENTITY_CATEGORY,
     CONF_ICON,
     CONF_NAME,
     CONF_UNIT_OF_MEASUREMENT,
     CONF_VALUE_TEMPLATE,
+    EntityCategory,
     UnitOfTemperature,
 )
 from homeassistant.helpers import selector
@@ -59,6 +61,14 @@ OPTIONS_SCHEMA = vol.Schema(
             selector.SelectSelectorConfig(
                 options=[UnitOfTemperature.CELSIUS, UnitOfTemperature.FAHRENHEIT],
                 custom_value=True,
+            )
+        ),
+        # Sensors can't use the config category
+        vol.Optional(CONF_ENTITY_CATEGORY): selector.SelectSelector(
+            selector.SelectSelectorConfig(
+                options=[EntityCategory.DIAGNOSTIC],
+                mode=selector.SelectSelectorMode.DROPDOWN,
+                translation_key="entity_category",
             )
         ),
         vol.Optional(CONF_FREQUENCY): selector.DurationSelector(

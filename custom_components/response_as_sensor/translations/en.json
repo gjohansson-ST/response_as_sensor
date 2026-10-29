@@ -12,6 +12,7 @@
           "device_class": "Device Class",
           "state_class": "State Class",
           "unit_of_measurement": "Unit of Measurement",
+          "entity_category": "Entity category",
           "frequency": "Frequency"
         },
         "data_description": {
@@ -31,6 +32,7 @@
           "device_class": "Device Class",
           "state_class": "State Class",
           "unit_of_measurement": "Unit of Measurement",
+          "entity_category": "Entity category",
           "frequency": "Frequency"
         },
         "data_description": {
@@ -102,6 +104,11 @@
         "measurement": "Measurement",
         "total": "Total",
         "total_increasing": "Total increasing"
+      }
+    },
+    "entity_category": {
+      "options": {
+        "diagnostic": "Diagnostic"
       }
     }
   }
