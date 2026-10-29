@@ -24,11 +24,12 @@ from homeassistant.const import (
     CONF_VALUE_TEMPLATE,
 )
 from homeassistant.core import CALLBACK_TYPE, Context, HomeAssistant, callback
+from homeassistant.exceptions import TemplateError
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.event import async_track_point_in_utc_time
 from homeassistant.helpers.script import Script
-from homeassistant.helpers.template import Template, TemplateError
+from homeassistant.helpers.template import Template
 from homeassistant.util import dt as dt_util
 
 from .const import CONF_FREQUENCY, DOMAIN
