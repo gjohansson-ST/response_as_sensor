@@ -18,7 +18,7 @@
 
 **Description:** "Create an entity from an action call response data."
 
-**Version:** 1.1.1
+**Version:** 1.2.0
 
 **Date created:** 2024-09-21
 
