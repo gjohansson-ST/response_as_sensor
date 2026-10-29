@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 import logging
 from typing import Any
 
-import voluptuous as vol
+import probatio
 
 from homeassistant.components.sensor import (
     CONF_STATE_CLASS,
@@ -38,17 +38,17 @@ from .const import CONF_FREQUENCY, DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
-RESPONSE_CONFIG_SCHEMA = vol.Schema(
+RESPONSE_CONFIG_SCHEMA = probatio.Schema(
     {
-        vol.Required(CONF_NAME): cv.string,
-        vol.Required(CONF_ACTION): cv.SCRIPT_SCHEMA,
-        vol.Required(CONF_VALUE_TEMPLATE): cv.template,
-        vol.Optional(CONF_ICON): cv.icon,
-        vol.Optional(CONF_DEVICE_CLASS): cv.string,
-        vol.Optional(CONF_STATE_CLASS): cv.string,
-        vol.Optional(CONF_UNIT_OF_MEASUREMENT): cv.string,
-        vol.Optional(CONF_ENTITY_CATEGORY): vol.Coerce(EntityCategory),
-        vol.Optional(
+        probatio.Required(CONF_NAME): cv.string,
+        probatio.Required(CONF_ACTION): cv.SCRIPT_SCHEMA,
+        probatio.Required(CONF_VALUE_TEMPLATE): cv.template,
+        probatio.Optional(CONF_ICON): cv.icon,
+        probatio.Optional(CONF_DEVICE_CLASS): cv.string,
+        probatio.Optional(CONF_STATE_CLASS): cv.string,
+        probatio.Optional(CONF_UNIT_OF_MEASUREMENT): cv.string,
+        probatio.Optional(CONF_ENTITY_CATEGORY): probatio.Coerce(EntityCategory),
+        probatio.Optional(
             CONF_FREQUENCY, default={"minutes": 5}
         ): cv.positive_time_period_dict,
     }
