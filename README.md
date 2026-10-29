@@ -18,7 +18,7 @@
 
 **Description:** "Create an entity from an action call response data."
 
-**Version:** 1.0.1
+**Version:** 1.1.0
 
 **Date created:** 2024-09-21
 
@@ -42,6 +42,7 @@
 - Device class: Device class (select from list).
 - State class: State class (select from list).
 - Unit of measurement: UoM to use in frontend (select from list, only temperature, or write your own).
+- Entity category: Set to diagnostic to show the sensor under "Diagnostic" on the device page instead of "Sensors".
 - Frequency: Frequency of the action call, don't set too low.
 
 ## Installation
