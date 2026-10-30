@@ -32,7 +32,7 @@ from homeassistant.helpers import device_registry as dr
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.event import async_track_point_in_utc_time
-from homeassistant.helpers.script import Script
+from homeassistant.helpers.script import Script, async_validate_actions_config
 from homeassistant.helpers.template import Template
 from homeassistant.util import dt as dt_util
 
@@ -71,7 +71,7 @@ async def async_setup_entry(
         dict(config_entry.options)
     )
 
-    action = validated_config[CONF_ACTION]
+    action = await async_validate_actions_config(hass, validated_config[CONF_ACTION])
     icon = validated_config.get(CONF_ICON)
     device_class = validated_config.get(CONF_DEVICE_CLASS)
     state_class = validated_config.get(CONF_STATE_CLASS)
@@ -207,6 +207,7 @@ class ResponseSensor(SensorEntity):  # pylint: disable=too-many-instance-attribu
         if self.unsub:
             self.unsub()
             self.unsub = None
+        await self._command_action.async_unload()
 
     @callback
     def async_entity_id_changed(self, old_entity_id: str) -> None:
