@@ -197,3 +197,8 @@ class ResponseSensor(SensorEntity):  # pylint: disable=too-many-instance-attribu
         if self.unsub:
             self.unsub()
             self.unsub = None
+
+    @callback
+    def async_entity_id_changed(self, old_entity_id: str) -> None:
+        """Opt in to in-place entity_id changes."""
+        super().async_entity_id_changed(old_entity_id)
