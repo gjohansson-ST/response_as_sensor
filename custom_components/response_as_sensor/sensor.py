@@ -18,6 +18,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
     CONF_ACTION,
     CONF_DEVICE_CLASS,
+    CONF_DEVICE_ID,
     CONF_ENTITY_CATEGORY,
     CONF_ICON,
     CONF_NAME,
@@ -27,6 +28,7 @@ from homeassistant.const import (
 )
 from homeassistant.core import CALLBACK_TYPE, Context, HomeAssistant, callback
 from homeassistant.exceptions import TemplateError
+from homeassistant.helpers import device_registry as dr
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.event import async_track_point_in_utc_time
@@ -48,6 +50,7 @@ RESPONSE_CONFIG_SCHEMA = probatio.Schema(
         probatio.Optional(CONF_STATE_CLASS): cv.string,
         probatio.Optional(CONF_UNIT_OF_MEASUREMENT): cv.string,
         probatio.Optional(CONF_ENTITY_CATEGORY): probatio.Coerce(EntityCategory),
+        probatio.Optional(CONF_DEVICE_ID): cv.string,
         probatio.Optional(
             CONF_FREQUENCY, default={"minutes": 5}
         ): cv.positive_time_period_dict,
@@ -74,6 +77,7 @@ async def async_setup_entry(
     state_class = validated_config.get(CONF_STATE_CLASS)
     uom = validated_config.get(CONF_UNIT_OF_MEASUREMENT)
     entity_category = validated_config.get(CONF_ENTITY_CATEGORY)
+    device_id = validated_config.get(CONF_DEVICE_ID)
     value_template = validated_config.get(CONF_VALUE_TEMPLATE)
     frequency = validated_config.get(CONF_FREQUENCY)
 
@@ -87,6 +91,7 @@ async def async_setup_entry(
                 state_class,
                 uom,
                 entity_category,
+                device_id,
                 config_entry.title,
                 config_entry.entry_id,
                 value_template,
@@ -111,6 +116,7 @@ class ResponseSensor(SensorEntity):  # pylint: disable=too-many-instance-attribu
         state_class: SensorStateClass | None,
         uom: str | None,
         entity_category: EntityCategory | None,
+        device_id: str | None,
         name: str,
         unique_id: str | None,
         value_template: Template,
@@ -126,6 +132,11 @@ class ResponseSensor(SensorEntity):  # pylint: disable=too-many-instance-attribu
         self._attr_native_unit_of_measurement = uom
         self._attr_state_class = state_class
         self._attr_entity_category = entity_category
+        # Allow linking to a main or child device, but not to a composite device
+        if device_id is not None:
+            self.device_entry = dr.async_get(hass).async_get(
+                device_id, include_composite_devices=False
+            )
 
         self._value_template = value_template
         self._frequency = frequency
