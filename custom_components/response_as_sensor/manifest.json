@@ -1,6 +1,7 @@
 {
     "domain": "response_as_sensor",
     "name": "Response as Sensor",
+    "categories": ["helpers.calculate_value"],
     "codeowners": ["@gjohansson-ST"],
     "config_flow": true,
     "documentation": "https://github.com/gjohansson-ST/response_as_sensor/blob/master/readme.md",
