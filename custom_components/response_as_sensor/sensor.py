@@ -105,7 +105,6 @@ class ResponseSensor(SensorEntity):  # pylint: disable=too-many-instance-attribu
     """Representation of an Attribute as Sensor sensor."""
 
     _attr_should_poll = False
-    _attr_has_entity_name = True
 
     def __init__(  # pylint: disable=too-many-arguments
         self,
