@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 import logging
 from typing import Any
 
-import voluptuous as vol
+import probatio
 
 from homeassistant.components.sensor import (
     CONF_STATE_CLASS,
@@ -18,6 +18,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
     CONF_ACTION,
     CONF_DEVICE_CLASS,
+    CONF_DEVICE_ID,
     CONF_ENTITY_CATEGORY,
     CONF_ICON,
     CONF_NAME,
@@ -27,10 +28,11 @@ from homeassistant.const import (
 )
 from homeassistant.core import CALLBACK_TYPE, Context, HomeAssistant, callback
 from homeassistant.exceptions import TemplateError
+from homeassistant.helpers import device_registry as dr
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.event import async_track_point_in_utc_time
-from homeassistant.helpers.script import Script
+from homeassistant.helpers.script import Script, async_validate_actions_config
 from homeassistant.helpers.template import Template
 from homeassistant.util import dt as dt_util
 
@@ -38,17 +40,18 @@ from .const import CONF_FREQUENCY, DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
-RESPONSE_CONFIG_SCHEMA = vol.Schema(
+RESPONSE_CONFIG_SCHEMA = probatio.Schema(
     {
-        vol.Required(CONF_NAME): cv.string,
-        vol.Required(CONF_ACTION): cv.SCRIPT_SCHEMA,
-        vol.Required(CONF_VALUE_TEMPLATE): cv.template,
-        vol.Optional(CONF_ICON): cv.icon,
-        vol.Optional(CONF_DEVICE_CLASS): cv.string,
-        vol.Optional(CONF_STATE_CLASS): cv.string,
-        vol.Optional(CONF_UNIT_OF_MEASUREMENT): cv.string,
-        vol.Optional(CONF_ENTITY_CATEGORY): vol.Coerce(EntityCategory),
-        vol.Optional(
+        probatio.Required(CONF_NAME): cv.string,
+        probatio.Required(CONF_ACTION): cv.SCRIPT_SCHEMA,
+        probatio.Required(CONF_VALUE_TEMPLATE): cv.template,
+        probatio.Optional(CONF_ICON): cv.icon,
+        probatio.Optional(CONF_DEVICE_CLASS): cv.string,
+        probatio.Optional(CONF_STATE_CLASS): cv.string,
+        probatio.Optional(CONF_UNIT_OF_MEASUREMENT): cv.string,
+        probatio.Optional(CONF_ENTITY_CATEGORY): probatio.Coerce(EntityCategory),
+        probatio.Optional(CONF_DEVICE_ID): cv.string,
+        probatio.Optional(
             CONF_FREQUENCY, default={"minutes": 5}
         ): cv.positive_time_period_dict,
     }
@@ -68,12 +71,13 @@ async def async_setup_entry(
         dict(config_entry.options)
     )
 
-    action = validated_config[CONF_ACTION]
+    action = await async_validate_actions_config(hass, validated_config[CONF_ACTION])
     icon = validated_config.get(CONF_ICON)
     device_class = validated_config.get(CONF_DEVICE_CLASS)
     state_class = validated_config.get(CONF_STATE_CLASS)
     uom = validated_config.get(CONF_UNIT_OF_MEASUREMENT)
     entity_category = validated_config.get(CONF_ENTITY_CATEGORY)
+    device_id = validated_config.get(CONF_DEVICE_ID)
     value_template = validated_config.get(CONF_VALUE_TEMPLATE)
     frequency = validated_config.get(CONF_FREQUENCY)
 
@@ -87,6 +91,7 @@ async def async_setup_entry(
                 state_class,
                 uom,
                 entity_category,
+                device_id,
                 config_entry.title,
                 config_entry.entry_id,
                 value_template,
@@ -100,7 +105,6 @@ class ResponseSensor(SensorEntity):  # pylint: disable=too-many-instance-attribu
     """Representation of an Attribute as Sensor sensor."""
 
     _attr_should_poll = False
-    _attr_has_entity_name = True
 
     def __init__(  # pylint: disable=too-many-arguments
         self,
@@ -111,6 +115,7 @@ class ResponseSensor(SensorEntity):  # pylint: disable=too-many-instance-attribu
         state_class: SensorStateClass | None,
         uom: str | None,
         entity_category: EntityCategory | None,
+        device_id: str | None,
         name: str,
         unique_id: str | None,
         value_template: Template,
@@ -126,6 +131,11 @@ class ResponseSensor(SensorEntity):  # pylint: disable=too-many-instance-attribu
         self._attr_native_unit_of_measurement = uom
         self._attr_state_class = state_class
         self._attr_entity_category = entity_category
+        # Allow linking to a main or child device, but not to a composite device
+        if device_id is not None:
+            self.device_entry = dr.async_get(hass).async_get(
+                device_id, include_composite_devices=False
+            )
 
         self._value_template = value_template
         self._frequency = frequency
@@ -197,3 +207,9 @@ class ResponseSensor(SensorEntity):  # pylint: disable=too-many-instance-attribu
         if self.unsub:
             self.unsub()
             self.unsub = None
+        await self._command_action.async_unload()
+
+    @callback
+    def async_entity_id_changed(self, old_entity_id: str) -> None:
+        """Opt in to in-place entity_id changes."""
+        super().async_entity_id_changed(old_entity_id)
