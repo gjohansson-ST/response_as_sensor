@@ -25,5 +25,5 @@ Even better: You could submit a pull request with a fix / new feature!
    developers, or if you do not have permission to do that, you may request
    the second reviewer to merge it for you.
 
-[github]: https://github.com/gjohansson-ST/attribute_as_sensor/issues
-[prs]: https://github.com/gjohansson-ST/attribute_as_sensor/pulls
+[github]: https://github.com/gjohansson-ST/response_as_sensor/issues
+[prs]: https://github.com/gjohansson-ST/response_as_sensor/pulls
