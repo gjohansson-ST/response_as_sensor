@@ -48,6 +48,7 @@
 - Frequency: Frequency of the action call, don't set too low.
 
 <!-- ha-marketplace:exclude-start -->
+
 ## Installation
 
 ### Option 1 (preferred)
@@ -62,6 +63,7 @@ Install from the [Marketplace](https://www.home-assistant.io/integrations/market
 2. Below new `custom_components` folder create a new folder called `response_as_entity`
 3. Upload the files/folders in `custom_components/response_as_sensor` directory to the newly created folder.
 4. Restart before proceeding
+
 <!-- ha-marketplace:exclude-end -->
 
 ## Activate integration in HA
