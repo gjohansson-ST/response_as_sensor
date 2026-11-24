@@ -47,6 +47,7 @@
 - Device: Device to link the sensor to, so it shows on that device's page.
 - Frequency: Frequency of the action call, don't set too low.
 
+<!-- ha-marketplace:exclude-start -->
 ## Installation
 
 ### Option 1 (preferred)
@@ -61,6 +62,7 @@ Install from the [Marketplace](https://www.home-assistant.io/integrations/market
 2. Below new `custom_components` folder create a new folder called `response_as_entity`
 3. Upload the files/folders in `custom_components/response_as_sensor` directory to the newly created folder.
 4. Restart before proceeding
+<!-- ha-marketplace:exclude-end -->
 
 ## Activate integration in HA
 
@@ -69,3 +71,8 @@ Install from the [Marketplace](https://www.home-assistant.io/integrations/market
 After installation go to "Devices & services" and then "helper" page in HA, press "+ Create helper" and find "Response as sensor"
 Follow on-screen information for the required information
 No restart needed
+
+## Contributions are more than welcome
+
+If not for code, maybe add a language file for your language.
+Use `string.json` provided by the integration as a template for adding another language.
